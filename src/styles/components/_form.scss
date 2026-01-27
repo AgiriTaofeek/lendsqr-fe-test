@@ -1,0 +1,95 @@
+@use "sass:color";
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+// Block: Form
+.form {
+  &__group {
+    margin-bottom: toRem(24);
+    position: relative;
+    width: 100%;
+  }
+
+  &__input {
+    width: 100%;
+    padding: toRem(16);
+    border: 2px solid rgba($color-border, 0.15);
+    border-radius: toRem(5);
+    font-family: $font-family-base;
+    color: $text-color-secondary;
+    font-size: toRem(14);
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+
+    &::placeholder {
+      color: rgba($text-color-secondary, 0.6);
+    }
+
+    &:focus {
+      border-color: $color-primary;
+    }
+  }
+}
+
+// Block: Button
+.btn {
+  display: inline-block;
+  font-weight: 600;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: toRem(16);
+  font-size: toRem(14);
+  line-height: 1.5;
+  border-radius: toRem(8);
+  transition:
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  width: 100%;
+
+  // Modifier: Primary
+  &--primary {
+    color: $color-white;
+    background-color: $color-primary;
+    border-color: $color-primary;
+
+    &:hover {
+      background-color: color.adjust($color-primary, $lightness: -5%);
+      border-color: color.adjust($color-primary, $lightness: -5%);
+    }
+  }
+}
+
+// Block: Password Toggle
+.password-toggle {
+  position: absolute;
+  right: toRem(16);
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: $color-primary;
+  font-size: toRem(12);
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+// Block: Forgot Password
+.forgot-password {
+  display: block;
+  color: $color-primary;
+  font-size: 12px;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: 600;
+  margin-bottom: toRem(30);
+  letter-spacing: 0.1em;
+}

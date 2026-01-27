@@ -1,0 +1,7 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.auth-layout {
+  display: flex;
+  min-height: 100vh;
+}
