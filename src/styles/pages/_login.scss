@@ -56,12 +56,28 @@
     max-width: toRem(440);
   }
 
+  &__mobile-logo {
+    display: block; // Visible on mobile
+    margin-bottom: toRem(40);
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (min-width: $breakpoint-mobile) {
+      display: none; // Hidden on desktop
+    }
+  }
+
   &__title {
     color: $text-color-primary;
     font-size: toRem(40);
     font-weight: 700;
     margin-bottom: toRem(10);
     line-height: 1.1;
+    text-align: center; // Mobile: Center
+
+    @media (min-width: $breakpoint-mobile) {
+      text-align: left; // Desktop: Left
+    }
   }
 
   &__subtitle {
@@ -69,5 +85,10 @@
     font-size: toRem(20);
     margin-bottom: toRem(60);
     font-weight: 400;
+    text-align: center; // Mobile: Center
+
+    @media (min-width: $breakpoint-mobile) {
+      text-align: left; // Desktop: Left
+    }
   }
 }

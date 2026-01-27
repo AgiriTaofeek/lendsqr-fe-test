@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/lib/supabase";
 import { z } from "zod";
+import { toast } from "react-toastify";
 
 export const loginSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -38,7 +39,9 @@ export const useLogin = () => {
     },
     onError: (error) => {
       console.error("Login failed:", error);
-      // In a real app, you might show a toast notification here
+      toast.error(
+        error.message || "Login failed. Please check your credentials.",
+      );
     },
   });
 };

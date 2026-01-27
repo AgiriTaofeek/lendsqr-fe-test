@@ -1,3 +1,5 @@
-export function Login() {
-  return <div>LOGIN</div>;
+import { RightPanel } from "./components/right-panel";
+
+export function LoginPage() {
+  return <RightPanel />;
 }
