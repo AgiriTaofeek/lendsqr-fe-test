@@ -22,10 +22,12 @@
 // @use 'layout/forms';
 
 // 5. Components
-// @use "components/header";
+@use "components/header";
+@use "components/sidebar";
+@use "components/dropdown-menu";
 // @use 'components/buttons';
 @use "components/form";
-// @use "layout/dashboard";
+@use "layout/dashboard";
 // @use 'components/carousel';
 // @use 'components/cover';
 // @use 'components/dropdown';
