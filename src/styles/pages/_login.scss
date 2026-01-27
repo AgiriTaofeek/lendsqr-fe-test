@@ -1,0 +1,94 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.login-page {
+  // Left Panel (Hero Image)
+  // Mobile First: Hidden by default
+  &__hero {
+    display: none;
+
+    // Desktop: Show it
+    @media (min-width: $breakpoint-mobile) {
+      flex: 1;
+      background-color: #f8f8f8;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: toRem(40);
+      position: relative;
+      overflow: hidden;
+    }
+
+    &-logo {
+      position: absolute;
+      top: toRem(100);
+      left: toRem(80);
+      width: toRem(150);
+    }
+
+    &-image {
+      max-width: 80%;
+      height: auto;
+      object-fit: contain;
+      mix-blend-mode: multiply; //The "SVG" is actually an embedded PNG with a white background. I've applied mix-blend-mode: multiply to the image via CSS. This effectively turns the white pixels transparent, allowing the grey background (#f8f8f8) to show through, creating the "blended" look
+    }
+  }
+
+  // Right Panel (Form)
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: toRem(20); // Mobile First: Smaller padding
+
+    // Desktop: Larger padding and shadow
+    @media (min-width: $breakpoint-mobile) {
+      padding: toRem(40);
+      box-shadow: toRem(-5) 0 toRem(20) rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  &__form-wrapper {
+    width: 100%;
+    max-width: toRem(440);
+  }
+
+  &__mobile-logo {
+    display: block; // Visible on mobile
+    margin-bottom: toRem(40);
+    margin-left: auto;
+    margin-right: auto;
+
+    @media (min-width: $breakpoint-mobile) {
+      display: none; // Hidden on desktop
+    }
+  }
+
+  &__title {
+    color: $text-color-primary;
+    font-size: toRem(40);
+    font-weight: 700;
+    margin-bottom: toRem(10);
+    line-height: 1.1;
+    text-align: center; // Mobile: Center
+
+    @media (min-width: $breakpoint-mobile) {
+      text-align: left; // Desktop: Left
+    }
+  }
+
+  &__subtitle {
+    color: $text-color-secondary;
+    font-size: toRem(20);
+    margin-bottom: toRem(60);
+    font-weight: 400;
+    text-align: center; // Mobile: Center
+
+    @media (min-width: $breakpoint-mobile) {
+      text-align: left; // Desktop: Left
+    }
+  }
+}
