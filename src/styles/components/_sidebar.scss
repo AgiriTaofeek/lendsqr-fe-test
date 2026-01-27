@@ -1,0 +1,122 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+// Sidebar Elements
+.sidebar {
+  display: flex;
+  flex-direction: column;
+
+  &__nav-scroll {
+    flex: 1;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__section {
+    margin-bottom: toRem(20);
+  }
+
+  &__header {
+    padding: 0 toRem(30);
+    font-size: toRem(12);
+    font-weight: 500;
+    color: $text-color-secondary;
+    text-transform: uppercase;
+    margin-bottom: toRem(10);
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: toRem(10);
+    padding: toRem(10) toRem(30);
+    color: $color-secondary;
+    text-decoration: none;
+    font-size: toRem(16);
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    opacity: 0.6; // Inactive state
+    transition: all 0.2s;
+
+    &:hover {
+      background-color: rgba($color-primary, 0.05);
+      opacity: 1;
+    }
+
+    &--active {
+      background-color: rgba($color-primary, 0.06);
+      border-left-color: $color-primary;
+      opacity: 1;
+    }
+
+    &-icon {
+      font-size: toRem(18);
+    }
+  }
+
+  &__switch-org {
+    padding: 0 toRem(30);
+    margin-bottom: toRem(30);
+    display: flex;
+    align-items: center;
+    gap: toRem(10);
+    color: $color-secondary;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: toRem(16);
+    line-height: 1;
+
+    //Vertical Alignment
+    &-text {
+      position: relative;
+      top: 2px;
+    }
+
+    &-icon {
+      transition: transform 0.2s ease;
+
+      &--open-desktop {
+        transform: rotate(-90deg); // Points right on desktop
+      }
+
+      &--open-mobile {
+        transform: rotate(180deg); // Points up on mobile
+      }
+    }
+  }
+
+  &__footer {
+    padding: toRem(20) 0;
+    border-top: 1px solid rgba($color-border, 0.1);
+    margin-top: auto;
+  }
+
+  &__logout {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: toRem(10);
+    padding: toRem(10) toRem(30);
+    color: $color-secondary;
+    background: none;
+    border: none;
+    font-size: toRem(16);
+    cursor: pointer;
+    opacity: 1;
+    border-left: 3px solid transparent;
+
+    &:hover {
+      background-color: rgba($color-primary, 0.05);
+    }
+  }
+
+  &__version {
+    padding: toRem(10) toRem(30);
+    font-size: toRem(12);
+    color: $color-border;
+  }
+}
