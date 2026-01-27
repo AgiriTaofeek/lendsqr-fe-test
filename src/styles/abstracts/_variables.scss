@@ -1,0 +1,43 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass variables.
+// -----------------------------------------------------------------------------
+
+// Colors
+$color-primary: #39cdcc; // Lendsqr Teal
+$color-secondary: #213f7d; // Lendsqr Navy
+$color-danger: #e4033b;
+$color-warning: #e9b200;
+$color-success: #39cdcc;
+$color-info: #39cdcc;
+$color-white: #ffffff;
+$color-black: #000000;
+$color-light: #fbfbfb;
+$color-dark: #213f7d;
+$color-border: #545f7d;
+
+// Text Colors
+$text-color-primary: #213f7d;
+$text-color-secondary: #545f7d;
+
+// Typography
+$font-family-base:
+  "Avenir Next",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  "Roboto",
+  "Oxygen",
+  "Ubuntu",
+  "Cantarell",
+  "Fira Sans",
+  "Droid Sans",
+  "Helvetica Neue",
+  sans-serif;
+$font-family-monospace:
+  source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+
+@use "mixins" as *;
+
+// Breakpoints
+$breakpoint-mobile: toRem(768);
+$breakpoint-tablet: toRem(1024);
