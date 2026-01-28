@@ -1,0 +1,145 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+// Filter Popover Form container
+.users-page__filter-form {
+  background-color: $color-white;
+  border: 1px solid rgba($color-border, 0.1);
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+  border-radius: toRem(4);
+  padding: toRem(30);
+  width: toRem(270);
+  z-index: 1050;
+
+  display: flex;
+  flex-direction: column;
+  gap: toRem(20);
+
+  // Radix Popover animation
+  &[data-state="open"] {
+    animation: fadeIn 150ms ease-out;
+  }
+
+  &[data-state="closed"] {
+    animation: fadeOut 150ms ease-in;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+.users-page__form-group {
+  display: flex;
+  flex-direction: column;
+  gap: toRem(8);
+}
+
+.users-page__label {
+  font-size: toRem(14);
+  font-weight: 500;
+  color: $text-color-secondary;
+  line-height: 1.2;
+}
+
+.users-page__input,
+.users-page__select {
+  padding: toRem(12) toRem(14);
+  border: 1px solid rgba($color-border, 0.15);
+  border-radius: toRem(8);
+  font-size: toRem(14);
+  color: $text-color-primary;
+  font-family: inherit;
+  outline: none;
+  width: 100%;
+  background-color: $color-white;
+  height: toRem(44);
+  line-height: 1.5;
+
+  // Ensure consistent appearance
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  &::placeholder {
+    color: rgba($text-color-secondary, 0.6);
+  }
+
+  &:focus {
+    border-color: $color-primary;
+    box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+  }
+}
+
+// Select-specific styles
+.users-page__select {
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23545F7D' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right toRem(14) center;
+  padding-right: toRem(40);
+  cursor: pointer;
+}
+
+// Input-specific styles
+.users-page__input {
+  &[type="date"] {
+    cursor: pointer;
+  }
+}
+
+.users-page__actions {
+  display: flex;
+  gap: toRem(14);
+  margin-top: toRem(10);
+}
+
+.users-page__btn-reset {
+  flex: 1;
+  padding: toRem(10);
+  background: transparent;
+  border: 1px solid $color-secondary;
+  color: $color-secondary;
+  border-radius: toRem(8);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: toRem(14);
+
+  &:hover {
+    background-color: rgba($color-secondary, 0.05);
+  }
+}
+
+.users-page__btn-filter {
+  flex: 1;
+  padding: toRem(10);
+  background: $color-primary;
+  border: 1px solid $color-primary;
+  color: white;
+  border-radius: toRem(8);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: toRem(14);
+
+  &:hover {
+    background-color: #356db5; // Slightly darker shade of primary
+  }
+}

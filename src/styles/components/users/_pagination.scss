@@ -1,0 +1,71 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+// Pagination
+.users-page__pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: toRem(20);
+  flex-wrap: wrap;
+  gap: toRem(20);
+
+  &-info {
+    display: flex;
+    align-items: center;
+    gap: toRem(10);
+    font-size: toRem(14);
+    color: $text-color-secondary;
+  }
+
+  &-select {
+    background: rgba(33, 63, 125, 0.1);
+    border-radius: toRem(4);
+    padding: toRem(5) toRem(10);
+    border: none;
+    color: $text-color-primary;
+    font-weight: 500;
+    cursor: pointer;
+    margin-right: toRem(10);
+  }
+
+  &-controls {
+    display: flex;
+    align-items: center;
+    gap: toRem(10);
+  }
+
+  &-btn {
+    width: toRem(30);
+    height: toRem(30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: $text-color-secondary;
+    border-radius: toRem(4);
+    cursor: pointer;
+    font-size: toRem(14);
+    font-weight: 500;
+
+    &:hover:not(:disabled) {
+      background-color: rgba($color-primary, 0.1);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &--active {
+      color: $color-primary;
+      font-weight: 700;
+    }
+
+    &--nav {
+      background-color: rgba(33, 63, 125, 0.1);
+      border-radius: toRem(4);
+    }
+  }
+}

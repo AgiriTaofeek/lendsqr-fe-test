@@ -31,12 +31,16 @@
 // @use 'components/carousel';
 // @use 'components/cover';
 // @use 'components/dropdown';
+@use "components/users/users-page";
+@use "components/users/users-stats";
+@use "components/users/table";
+@use "components/users/pagination";
+@use "components/users/filter";
+@use "components/users/action-menu";
 
 // 6. Pages
 // @use 'pages/home';
 @use "pages/login";
-// @use "pages/users";
-// @use "pages/user-details";
 
 // 7. Themes
 // @use 'themes/default';
