@@ -14,21 +14,30 @@
   z-index: 100; // Above table rows
   padding: toRem(10) 0;
   overflow: hidden;
+  transform-origin: var(--radix-dropdown-menu-content-transform-origin);
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 
   // Radix Dropdown animation
-  &[data-state="open"] {
-    animation: fadeIn 150ms ease-out;
+  &[data-side="top"] {
+    animation-name: slideDownAndFade;
   }
-
-  &[data-state="closed"] {
-    animation: fadeOut 150ms ease-in;
+  &[data-side="right"] {
+    animation-name: slideLeftAndFade;
+  }
+  &[data-side="bottom"] {
+    animation-name: slideUpAndFade;
+  }
+  &[data-side="left"] {
+    animation-name: slideRightAndFade;
   }
 }
 
-@keyframes fadeIn {
+@keyframes slideUpAndFade {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(2px);
   }
   to {
     opacity: 1;
@@ -36,14 +45,36 @@
   }
 }
 
-@keyframes fadeOut {
+@keyframes slideRightAndFade {
   from {
+    opacity: 0;
+    transform: translateX(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideDownAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
     opacity: 1;
     transform: translateY(0);
   }
-  to {
+}
+
+@keyframes slideLeftAndFade {
+  from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateX(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
@@ -62,9 +93,11 @@
   text-align: left;
   text-decoration: none;
 
-  &:hover {
+  &:hover,
+  &[data-highlighted] {
     background-color: rgba($color-secondary, 0.05);
     color: $color-primary;
+    outline: none;
   }
 }
 

@@ -1,27 +1,20 @@
-import { useState } from "react";
-import { MOCK_USERS } from "./data";
+import { getRouteApi } from "@tanstack/react-router";
 import { StatsGrid } from "./stats-grid";
 import { UsersTable } from "./users-table";
 import { Pagination } from "./pagination";
 
-export function Users() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+const routeApi = getRouteApi("/_protected/users/");
 
-  // Calculate pagination
-  const totalPages = Math.ceil(MOCK_USERS.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentUsers = MOCK_USERS.slice(startIndex, startIndex + itemsPerPage);
+export function Users() {
+  const { data: users, meta } = routeApi.useLoaderData();
+  const navigate = routeApi.useNavigate();
 
   const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-    }
+    navigate({ search: (prev: any) => ({ ...prev, page }) });
   };
 
-  const handleItemsPerPageChange = (items: number) => {
-    setItemsPerPage(items);
-    setCurrentPage(1);
+  const handleItemsPerPageChange = (limit: number) => {
+    navigate({ search: (prev: any) => ({ ...prev, limit, page: 1 }) });
   };
 
   return (
@@ -30,13 +23,18 @@ export function Users() {
 
       <StatsGrid />
 
-      <UsersTable users={currentUsers} />
+      {/*
+        Ideally StatsGrid should also be dynamic,
+        but for now we focus on the table
+      */}
+
+      <UsersTable users={users} />
 
       <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        itemsPerPage={itemsPerPage}
-        totalItems={MOCK_USERS.length}
+        currentPage={meta.page}
+        totalPages={meta.totalPages}
+        itemsPerPage={meta.limit}
+        totalItems={meta.total}
         onPageChange={handlePageChange}
         onItemsPerPageChange={handleItemsPerPageChange}
       />

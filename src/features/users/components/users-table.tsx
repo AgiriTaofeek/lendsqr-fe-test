@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { IoFilterSharp } from "react-icons/io5";
-import type { User } from "./data";
+import type { User } from "../data";
 import { ActionMenu } from "./action-menu";
 import { FilterForm } from "./filter-form";
 
@@ -85,6 +85,7 @@ export function UsersTable({ users }: UsersTableProps) {
                         background: "none",
                         border: "none",
                         cursor: "pointer",
+                        outline: "none",
                       }}
                     >
                       <BsThreeDotsVertical size={16} color="#545F7D" />

@@ -1,0 +1,72 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+.user-details {
+  // Back Navigation
+  &__back-btn {
+    display: flex;
+    align-items: center;
+    gap: toRem(10);
+    color: $text-color-secondary;
+    font-size: toRem(16);
+    margin-bottom: toRem(30);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+
+    &:hover {
+      color: $text-color-primary;
+    }
+  }
+
+  // Page Header
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: toRem(40);
+    flex-wrap: wrap;
+    gap: toRem(20);
+  }
+
+  &__title {
+    font-size: toRem(24);
+    font-weight: 500;
+    color: $text-color-primary;
+  }
+
+  &__actions {
+    display: flex;
+    gap: toRem(20);
+  }
+
+  &__btn {
+    padding: toRem(10) toRem(16);
+    border-radius: toRem(8);
+    background: transparent;
+    font-weight: 600;
+    font-size: toRem(14);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+
+    &--blacklist {
+      border: 1px solid #e4033b;
+      color: #e4033b;
+
+      &:hover {
+        background-color: rgba(228, 3, 59, 0.05);
+      }
+    }
+
+    &--activate {
+      border: 1px solid #39cdcc;
+      color: #39cdcc;
+
+      &:hover {
+        background-color: rgba(57, 205, 104, 0.05);
+      }
+    }
+  }
+}

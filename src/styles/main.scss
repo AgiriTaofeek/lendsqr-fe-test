@@ -41,6 +41,10 @@
 // 6. Pages
 // @use 'pages/home';
 @use "pages/login";
+// @use "pages/users";
+// @use "pages/user-details";
+@use "components/user-details";
+@use "components/dashboard/dashboard" as dashboard-page;
 
 // 7. Themes
 // @use 'themes/default';

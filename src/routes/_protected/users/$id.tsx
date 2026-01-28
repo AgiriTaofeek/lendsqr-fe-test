@@ -1,9 +1,13 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { UserDetails } from "@/features/users/components/user-details";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/_protected/users/$id')({
-  component: RouteComponent,
-})
-
-function RouteComponent() {
-  return <div>Hello "/_protected/users/$id"!</div>
-}
+export const Route = createFileRoute("/_protected/users/$id")({
+  loader: async ({ params: { id } }) => {
+    const response = await fetch(`/api/users/${id}`);
+    if (!response.ok) {
+      throw new Error("User not found");
+    }
+    return response.json();
+  },
+  component: UserDetails,
+});
