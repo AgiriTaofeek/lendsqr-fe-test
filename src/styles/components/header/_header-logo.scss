@@ -1,0 +1,29 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+.header-menu-btn {
+  background: none;
+  border: none;
+  font-size: toRem(24);
+  color: $color-secondary;
+  cursor: pointer;
+  display: block;
+  padding: toRem(5);
+
+  @media (min-width: $breakpoint-tablet) {
+    display: none; // Hide on desktop
+  }
+}
+
+.header-logo {
+  width: toRem(100); // Smaller logo on mobile
+
+  @media (min-width: $breakpoint-tablet) {
+    width: toRem(145);
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}

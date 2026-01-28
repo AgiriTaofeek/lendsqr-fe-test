@@ -1,0 +1,12 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+.notification-bell {
+  color: $color-secondary;
+  font-size: toRem(20);
+  cursor: pointer;
+
+  @media (min-width: $breakpoint-tablet) {
+    font-size: toRem(24);
+  }
+}

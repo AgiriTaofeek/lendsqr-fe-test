@@ -23,11 +23,6 @@ export function Users() {
 
       <StatsGrid />
 
-      {/*
-        Ideally StatsGrid should also be dynamic,
-        but for now we focus on the table
-      */}
-
       <UsersTable users={users} />
 
       <Pagination

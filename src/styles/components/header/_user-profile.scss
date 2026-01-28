@@ -1,0 +1,46 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: toRem(5);
+  cursor: pointer;
+
+  // &:focus:not(:focus-visible) {
+  //   outline: none;
+  //   box-shadow: none;
+  // }
+
+  @media (min-width: $breakpoint-tablet) {
+    gap: toRem(10);
+  }
+
+  &__image {
+    width: toRem(32);
+    height: toRem(32);
+    border-radius: 50%;
+    object-fit: cover;
+
+    @media (min-width: $breakpoint-tablet) {
+      width: toRem(48);
+      height: toRem(48);
+    }
+  }
+
+  &__name {
+    color: $color-secondary;
+    font-weight: 500;
+    font-size: toRem(14);
+    display: none; // Hide Name on mobile to save space
+
+    @media (min-width: $breakpoint-mobile) {
+      display: block;
+      font-size: toRem(16);
+    }
+  }
+
+  &__icon {
+    color: $color-secondary;
+  }
+}

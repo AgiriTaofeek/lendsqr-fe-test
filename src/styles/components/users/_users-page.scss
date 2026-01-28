@@ -2,7 +2,6 @@
 @use "../../abstracts/mixins" as *;
 
 .users-page {
-  // Page Title
   &__title {
     color: $text-color-primary;
     font-size: toRem(24);
