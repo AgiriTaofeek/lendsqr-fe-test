@@ -2,6 +2,23 @@ import { http, HttpResponse, delay } from "msw";
 import { db } from "./db";
 
 export const handlers = [
+  // GET /api/users/stats
+  http.get("/api/users/stats", async () => {
+    await delay(300);
+    // Initialize DB if needed
+    db.init();
+    const users = db.getAll();
+
+    const stats = {
+      totalUsers: users.length,
+      activeUsers: users.filter((u) => u.status === "Active").length,
+      usersWithLoans: users.filter((u) => u.education.repayment).length, // simplified logic
+      usersWithSavings: users.filter((u) => u.amount).length, // simplified logic
+    };
+
+    return HttpResponse.json(stats);
+  }),
+
   // GET /api/users
   http.get("/api/users", async ({ request }) => {
     // Simulate network latency

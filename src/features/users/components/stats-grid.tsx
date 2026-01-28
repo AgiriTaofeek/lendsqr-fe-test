@@ -2,32 +2,43 @@ import { FiUsers, FiFileText, FiDatabase } from "react-icons/fi";
 import { FaUsers } from "react-icons/fa";
 import { StatsCard } from "./stats-card";
 
-export function StatsGrid() {
+interface StatsGridProps {
+  stats: {
+    totalUsers: number;
+    activeUsers: number;
+    usersWithLoans: number;
+    usersWithSavings: number;
+  };
+}
+
+export function StatsGrid({ stats }: StatsGridProps) {
+  if (!stats) return null;
+
   return (
     <div className="users-page__stats">
       <StatsCard
         icon={<FiUsers />}
         variant="pink"
         label="Users"
-        value="2,453"
+        value={stats.totalUsers.toLocaleString()}
       />
       <StatsCard
         icon={<FaUsers />}
         variant="purple"
         label="Active Users"
-        value="2,453"
+        value={stats.activeUsers.toLocaleString()}
       />
       <StatsCard
         icon={<FiFileText />}
         variant="orange"
         label="Users with Loans"
-        value="12,453"
+        value={stats.usersWithLoans.toLocaleString()}
       />
       <StatsCard
         icon={<FiDatabase />}
         variant="red"
         label="Users with Savings"
-        value="102,453"
+        value={stats.usersWithSavings.toLocaleString()}
       />
     </div>
   );

@@ -7,53 +7,46 @@ import { FilterForm } from "./filter-form";
 
 interface UsersTableProps {
   users: User[];
+  isLoading?: boolean;
 }
 
-export function UsersTable({ users }: UsersTableProps) {
+export function UsersTable({ users, isLoading }: UsersTableProps) {
+  if (isLoading) {
+    return (
+      <div className="users-page__table-wrapper">
+        <table className="users-page__table">
+          <TableHead />
+          <tbody>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <tr key={i}>
+                {HEADERS.map((_, index) => (
+                  <td key={index}>
+                    <div className="users-page__skeleton" />
+                  </td>
+                ))}
+                <td></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
+
+  if (!users.length) {
+    return (
+      <div className="users-page__table-wrapper">
+        <div className="users-page__empty-state">
+          No users found matching your criteria.
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="users-page__table-wrapper">
       <table className="users-page__table">
-        <thead>
-          <tr>
-            {[
-              "Organization",
-              "Username",
-              "Email",
-              "Phone Number",
-              "Date Joined",
-              "Status",
-            ].map((header) => (
-              <th key={header}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "5px",
-                  }}
-                >
-                  {header}
-                  <FilterForm
-                    trigger={
-                      <button
-                        style={{
-                          display: "flex",
-                          background: "none",
-                          border: "none",
-                          cursor: "pointer",
-                          padding: 0,
-                        }}
-                        aria-label={`Filter ${header}`}
-                      >
-                        <IoFilterSharp className="filter-icon" />
-                      </button>
-                    }
-                  />
-                </div>
-              </th>
-            ))}
-            <th></th>
-          </tr>
-        </thead>
+        <TableHead />
         <tbody>
           {users.map((user) => (
             <tr key={user.id}>
@@ -79,15 +72,7 @@ export function UsersTable({ users }: UsersTableProps) {
                 <ActionMenu
                   userId={user.id}
                   trigger={
-                    <button
-                      className="users-page__action-btn"
-                      style={{
-                        background: "none",
-                        border: "none",
-                        cursor: "pointer",
-                        outline: "none",
-                      }}
-                    >
+                    <button className="users-page__action-btn">
                       <BsThreeDotsVertical size={16} color="#545F7D" />
                     </button>
                   }
@@ -98,5 +83,41 @@ export function UsersTable({ users }: UsersTableProps) {
         </tbody>
       </table>
     </div>
+  );
+}
+
+const HEADERS = [
+  "Organization",
+  "Username",
+  "Email",
+  "Phone Number",
+  "Date Joined",
+  "Status",
+];
+
+function TableHead() {
+  return (
+    <thead>
+      <tr>
+        {HEADERS.map((header) => (
+          <th key={header}>
+            <div className="users-page__th-content">
+              {header}
+              <FilterForm
+                trigger={
+                  <button
+                    className="users-page__filter-btn"
+                    aria-label={`Filter ${header}`}
+                  >
+                    <IoFilterSharp className="filter-icon" />
+                  </button>
+                }
+              />
+            </div>
+          </th>
+        ))}
+        <th></th>
+      </tr>
+    </thead>
   );
 }

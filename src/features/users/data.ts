@@ -45,8 +45,13 @@ export interface User {
   };
 }
 
-const ORGANIZATIONS = ["Lendsqr", "Irorun", "Lendstar"];
-const STATUSES: UserStatus[] = ["Active", "Inactive", "Pending", "Blacklisted"];
+export const ORGANIZATIONS = ["Lendsqr", "Irorun", "Lendstar"];
+export const STATUSES: UserStatus[] = [
+  "Active",
+  "Inactive",
+  "Pending",
+  "Blacklisted",
+];
 
 export const generateMockUsers = (count: number): User[] => {
   return Array.from({ length: count }, () => {

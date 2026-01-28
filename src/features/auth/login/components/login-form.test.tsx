@@ -1,7 +1,8 @@
 /**
  * @vitest-environment jsdom
  */
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { LoginForm } from "./login-form";
 import * as useLoginModule from "../../hooks/useLogin";
@@ -58,7 +59,8 @@ describe("LoginForm", () => {
     expect(screen.getByText(/forgot password/i)).toBeInTheDocument();
   });
 
-  it("can toggle password visibility", () => {
+  it("can toggle password visibility", async () => {
+    const user = userEvent.setup();
     render(<LoginForm />);
     const passwordInput = screen.getByPlaceholderText(/password/i);
     const toggleButton = screen.getByRole("button", { name: /show password/i });
@@ -68,7 +70,7 @@ describe("LoginForm", () => {
     expect(toggleButton).toHaveTextContent("SHOW");
 
     // Click toggle
-    fireEvent.click(toggleButton);
+    await user.click(toggleButton);
 
     // New state: password visible
     expect(passwordInput).toHaveAttribute("type", "text");
@@ -76,15 +78,16 @@ describe("LoginForm", () => {
     expect(toggleButton).toHaveAttribute("aria-label", "Hide password");
 
     // Click again
-    fireEvent.click(toggleButton);
+    await user.click(toggleButton);
     expect(passwordInput).toHaveAttribute("type", "password");
   });
 
   it("shows validation errors on empty submit", async () => {
+    const user = userEvent.setup();
     render(<LoginForm />);
 
     const submitButton = screen.getByRole("button", { name: /log in/i });
-    fireEvent.click(submitButton);
+    await user.click(submitButton);
 
     expect(
       await screen.findByText(/invalid email address/i),
@@ -97,13 +100,14 @@ describe("LoginForm", () => {
   });
 
   it("shows error for invalid email format", async () => {
+    const user = userEvent.setup();
     render(<LoginForm />);
     const emailInput = screen.getByPlaceholderText(/email/i);
     const submitButton = screen.getByRole("button", { name: /log in/i });
 
     // Type invalid email
-    fireEvent.change(emailInput, { target: { value: "invalid-email" } });
-    fireEvent.click(submitButton);
+    await user.type(emailInput, "invalid-email");
+    await user.click(submitButton);
 
     expect(
       await screen.findByText(/invalid email address/i),
@@ -112,13 +116,14 @@ describe("LoginForm", () => {
   });
 
   it("shows error for short password", async () => {
+    const user = userEvent.setup();
     render(<LoginForm />);
     const passwordInput = screen.getByPlaceholderText(/password/i);
     const submitButton = screen.getByRole("button", { name: /log in/i });
 
     // Type short password
-    fireEvent.change(passwordInput, { target: { value: "123" } });
-    fireEvent.click(submitButton);
+    await user.type(passwordInput, "123");
+    await user.click(submitButton);
 
     expect(
       await screen.findByText(/password must be at least 6 characters/i),
@@ -127,16 +132,17 @@ describe("LoginForm", () => {
   });
 
   it("calls login function with correct data when valid", async () => {
+    const user = userEvent.setup();
     render(<LoginForm />);
 
     const emailInput = screen.getByPlaceholderText(/email/i);
     const passwordInput = screen.getByPlaceholderText(/password/i);
     const submitButton = screen.getByRole("button", { name: /log in/i });
 
-    fireEvent.change(emailInput, { target: { value: "test@example.com" } });
-    fireEvent.change(passwordInput, { target: { value: "password123" } });
+    await user.type(emailInput, "test@example.com");
+    await user.type(passwordInput, "password123");
 
-    fireEvent.click(submitButton);
+    await user.click(submitButton);
 
     await waitFor(() => {
       expect(mockLogin).toHaveBeenCalledWith({

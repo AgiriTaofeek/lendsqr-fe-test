@@ -12,7 +12,7 @@
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
   border-radius: toRem(4);
   z-index: 100; // Above table rows
-  padding: toRem(10) 0;
+  padding: toRem(10) 0 !important; // Override shared padding
   overflow: hidden;
   transform-origin: var(--radix-dropdown-menu-content-transform-origin);
   animation-duration: 400ms;
@@ -79,8 +79,9 @@
 }
 
 .users-page__menu-item {
-  display: flex;
+  display: flex !important; // Override shared styles if needed
   align-items: center;
+  justify-content: flex-start !important; // Override space-between
   gap: toRem(10);
   padding: toRem(10) toRem(20);
   font-size: toRem(14);
@@ -92,6 +93,16 @@
   background: none;
   text-align: left;
   text-decoration: none;
+
+  // Add styles for the Link component if it's the child
+  & > a {
+    display: flex;
+    align-items: center;
+    gap: toRem(10);
+    width: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
 
   &:hover,
   &[data-highlighted] {

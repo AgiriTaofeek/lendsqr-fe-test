@@ -1,13 +1,7 @@
-import { StatsGrid } from "@/features/users/components/stats-grid";
-
 export function Dashboard() {
   return (
     <div className="users-page">
       <h1 className="users-page__title">Dashboard</h1>
-
-      <div className="dashboard__section">
-        <StatsGrid />
-      </div>
 
       <div className="dashboard__welcome-card">
         <img

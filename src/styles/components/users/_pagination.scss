@@ -21,12 +21,16 @@
   &-select {
     background: rgba(33, 63, 125, 0.1);
     border-radius: toRem(4);
-    padding: toRem(5) toRem(10);
+    padding: toRem(5) toRem(30) toRem(5) toRem(10);
     border: none;
     color: $text-color-primary;
     font-weight: 500;
     cursor: pointer;
     margin-right: toRem(10);
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2.5 4.5L6 8L9.5 4.5' stroke='%23213f7d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right toRem(10) center;
   }
 
   &-controls {
