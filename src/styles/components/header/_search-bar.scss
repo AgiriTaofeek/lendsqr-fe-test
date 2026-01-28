@@ -1,0 +1,40 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+.search-bar {
+  display: none; // Hidden on mobile by default (design choice for MVP)
+
+  @media (min-width: $breakpoint-tablet) {
+    display: flex;
+    width: toRem(400);
+  }
+
+  input {
+    width: 100%;
+    border: 1px solid rgba($color-border, 0.3);
+    border-right: none;
+    border-top-left-radius: toRem(8);
+    border-bottom-left-radius: toRem(8);
+    padding: toRem(12) toRem(20);
+    font-family: $font-family-base;
+    font-size: toRem(14);
+    outline: none;
+
+    &::placeholder {
+      color: rgba($text-color-secondary, 0.7);
+    }
+  }
+
+  button {
+    background-color: $color-primary;
+    border: none;
+    border-top-right-radius: toRem(8);
+    border-bottom-right-radius: toRem(8);
+    padding: 0 toRem(20);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

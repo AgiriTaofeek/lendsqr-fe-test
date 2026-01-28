@@ -8,7 +8,7 @@ import {
   loginSchema,
   type LoginFormData,
 } from "../../hooks/useLogin";
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);

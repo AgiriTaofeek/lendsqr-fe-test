@@ -88,13 +88,18 @@ export const handlers = [
     await delay(800);
     const body = (await request.json()) as { email: string };
 
-    // Simulate successful login for any email
+    // Derive name from email (e.g., "adedeji@..." -> "Adedeji")
+    const derivedName = body.email.split("@")[0];
+    const capitalizedName =
+      derivedName.charAt(0).toUpperCase() + derivedName.slice(1);
+
+    // Simulate successful login
     return HttpResponse.json({
       user: {
         id: "mock-user-123",
         email: body.email,
-        name: "Mock User",
-        avatarUrl: "https://api.dicebear.com/9.x/adventurer/svg?seed=Mock",
+        name: capitalizedName,
+        avatarUrl: `https://api.dicebear.com/9.x/adventurer/svg?seed=${derivedName}`,
       },
       token: "mock-jwt-token",
     });

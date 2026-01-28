@@ -32,8 +32,8 @@ export const useLogin = () => {
     },
     onSuccess: (data) => {
       // Sync with our Router Auth Context
-      if (data.user?.email) {
-        auth.signIn(data.user.email);
+      if (data.user) {
+        auth.signIn(data.user);
       }
 
       // Invalidate router to ensure the beforeLoad check re-runs immediately

@@ -1,0 +1,56 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: toRem(100);
+  background-color: $color-white;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.04);
+  // z-index needed for box-shadow to render above content
+  // Relative to #app isolation context: header(10) > sidebar(9) > overlay(8) > content(auto)
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  padding: 0 toRem(20);
+  justify-content: space-between;
+
+  @media (min-width: $breakpoint-tablet) {
+    padding: 0 toRem(30);
+  }
+
+  &__left-section {
+    display: flex;
+    align-items: center;
+    gap: toRem(10);
+
+    @media (min-width: $breakpoint-tablet) {
+      gap: toRem(100);
+    }
+  }
+
+  &__right-section {
+    display: flex;
+    align-items: center;
+    gap: toRem(15); // Smaller gap on mobile
+
+    @media (min-width: $breakpoint-tablet) {
+      gap: toRem(40);
+    }
+  }
+
+  &__link {
+    color: $color-secondary;
+    text-decoration: none;
+    font-size: toRem(14);
+    text-decoration: underline;
+    display: none; // Maybe hide docs on extremely small screens? Keep for now if space allows.
+
+    @media (min-width: $breakpoint-mobile) {
+      display: block;
+      font-size: toRem(16);
+    }
+  }
+}

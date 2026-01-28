@@ -14,6 +14,7 @@
 
 // 4. Layout
 @use "layout/auth-layout";
+@use "layout/dashboard-layout";
 // @use 'layout/navigation';
 // @use 'layout/grid';
 // @use 'layout/header';
@@ -26,17 +27,17 @@
 @use "components/sidebar";
 @use "components/dropdown-menu";
 @use "components/button";
-
-@use "layout/dashboard";
+@use "components/users";
+// @use "layout/dashboard";
 // @use 'components/carousel';
 // @use 'components/cover';
 // @use 'components/dropdown';
-@use "components/users/users-page";
-@use "components/users/users-stats";
-@use "components/users/table";
-@use "components/users/pagination";
-@use "components/users/filter";
-@use "components/users/action-menu";
+// @use "components/users/users-page";
+// @use "components/users/users-stats";
+// @use "components/users/table";
+// @use "components/users/pagination";
+// @use "components/users/filter";
+// @use "components/users/action-menu";
 
 // 6. Pages
 // @use 'pages/home';
@@ -44,7 +45,7 @@
 // @use "pages/users";
 // @use "pages/user-details";
 @use "components/user-details";
-@use "components/dashboard/dashboard" as dashboard-page;
+@use "components/dashboard/dashboard";
 
 // 7. Themes
 // @use 'themes/default';
