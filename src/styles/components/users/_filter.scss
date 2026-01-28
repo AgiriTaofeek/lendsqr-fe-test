@@ -11,9 +11,12 @@
   width: toRem(270);
   z-index: 1050;
 
-  display: flex;
-  flex-direction: column;
-  gap: toRem(20);
+  // Ensure form elements stack with gap
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(20);
+  }
 
   // Radix Popover animation
   &[data-state="open"] {

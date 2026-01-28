@@ -10,4 +10,6 @@ export const Route = createFileRoute("/_protected/users/$id")({
     return response.json();
   },
   component: UserDetails,
+  staleTime: 5 * 60 * 1000,
+  preloadStaleTime: 5 * 60 * 1000,
 });

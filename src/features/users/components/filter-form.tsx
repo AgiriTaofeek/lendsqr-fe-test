@@ -1,6 +1,7 @@
 import * as Popover from "@radix-ui/react-popover";
 import { getRouteApi } from "@tanstack/react-router";
 import { useForm } from "react-hook-form";
+import { ORGANIZATIONS, STATUSES } from "../data";
 
 const routeApi = getRouteApi("/_protected/users/");
 
@@ -17,7 +18,11 @@ interface FilterFormValues {
   date: string;
 }
 
-export function FilterForm({ trigger }: FilterFormProps) {
+export function FilterForm({
+  trigger,
+  triggerClass,
+  isPending,
+}: FilterFormProps & { triggerClass?: string; isPending?: boolean }) {
   const navigate = routeApi.useNavigate();
   const search = routeApi.useSearch();
 
@@ -72,18 +77,29 @@ export function FilterForm({ trigger }: FilterFormProps) {
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="users-page__form-group">
-              <label className="users-page__label">Organization</label>
-              <select className="users-page__select" {...register("org")}>
+              <label htmlFor="org" className="users-page__label">
+                Organization
+              </label>
+              <select
+                id="org"
+                className="users-page__select"
+                {...register("org")}
+              >
                 <option value="">Select</option>
-                <option value="Lendsqr">Lendsqr</option>
-                <option value="Irorun">Irorun</option>
-                <option value="Lendstar">Lendstar</option>
+                {ORGANIZATIONS.map((org) => (
+                  <option key={org} value={org}>
+                    {org}
+                  </option>
+                ))}
               </select>
             </div>
 
             <div className="users-page__form-group">
-              <label className="users-page__label">Username</label>
+              <label htmlFor="username" className="users-page__label">
+                Username
+              </label>
               <input
+                id="username"
                 type="text"
                 placeholder="User"
                 className="users-page__input"
@@ -92,8 +108,11 @@ export function FilterForm({ trigger }: FilterFormProps) {
             </div>
 
             <div className="users-page__form-group">
-              <label className="users-page__label">Email</label>
+              <label htmlFor="email" className="users-page__label">
+                Email
+              </label>
               <input
+                id="email"
                 type="email"
                 placeholder="Email"
                 className="users-page__input"
@@ -102,8 +121,11 @@ export function FilterForm({ trigger }: FilterFormProps) {
             </div>
 
             <div className="users-page__form-group">
-              <label className="users-page__label">Date</label>
+              <label htmlFor="date" className="users-page__label">
+                Date
+              </label>
               <input
+                id="date"
                 type="date"
                 placeholder="Date"
                 className="users-page__input"
@@ -112,8 +134,11 @@ export function FilterForm({ trigger }: FilterFormProps) {
             </div>
 
             <div className="users-page__form-group">
-              <label className="users-page__label">Phone Number</label>
+              <label htmlFor="phone" className="users-page__label">
+                Phone Number
+              </label>
               <input
+                id="phone"
                 type="text"
                 placeholder="Phone Number"
                 className="users-page__input"
@@ -122,13 +147,20 @@ export function FilterForm({ trigger }: FilterFormProps) {
             </div>
 
             <div className="users-page__form-group">
-              <label className="users-page__label">Status</label>
-              <select className="users-page__select" {...register("status")}>
+              <label htmlFor="status" className="users-page__label">
+                Status
+              </label>
+              <select
+                id="status"
+                className="users-page__select"
+                {...register("status")}
+              >
                 <option value="">Select</option>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
-                <option value="Pending">Pending</option>
-                <option value="Blacklisted">Blacklisted</option>
+                {STATUSES.map((status) => (
+                  <option key={status} value={status}>
+                    {status}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -137,10 +169,15 @@ export function FilterForm({ trigger }: FilterFormProps) {
                 type="button"
                 onClick={onReset}
                 className="users-page__btn-reset"
+                disabled={isPending}
               >
                 Reset
               </button>
-              <button type="submit" className="users-page__btn-filter">
+              <button
+                type="submit"
+                className="users-page__btn-filter"
+                disabled={isPending}
+              >
                 Filter
               </button>
             </div>

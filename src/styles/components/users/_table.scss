@@ -82,3 +82,43 @@
   cursor: pointer;
   vertical-align: middle;
 }
+
+// Table Header Cell Wrapper
+.users-page__th-content {
+  display: flex;
+  align-items: center;
+  gap: toRem(5);
+}
+
+// Filter Button
+.users-page__filter-btn {
+  display: flex;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+// Action Button
+.users-page__action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+// Loading Skeleton
+.users-page__skeleton {
+  height: toRem(20);
+  background: #f0f0f0;
+  border-radius: toRem(4);
+  width: 80%;
+}
+
+// Empty State
+.users-page__empty-state {
+  padding: toRem(40);
+  text-align: center;
+  color: $text-color-secondary;
+  font-size: toRem(16);
+}
