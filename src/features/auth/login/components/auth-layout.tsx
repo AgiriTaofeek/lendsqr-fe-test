@@ -1,11 +1,11 @@
-import { Outlet } from "@tanstack/react-router";
-import { LeftPanel } from "./left-panel";
+import { HeroSection } from "@/features/auth/login/components/hero-section";
+import { FormSection } from "@/features/auth/login/components/form-section";
 
 export function AuthLayout() {
   return (
     <div className="auth-layout">
-      <LeftPanel />
-      <Outlet />
+      <HeroSection />
+      <FormSection />
     </div>
   );
 }

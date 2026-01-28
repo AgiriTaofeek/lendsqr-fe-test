@@ -3,13 +3,13 @@ import { Image } from "@unpic/react";
 import lensqrLogo from "@/assets/images/lensqr-logo.svg";
 import pabloIllustration from "@/assets/images/pablo-sign-in.svg";
 
-export function LeftPanel() {
+export function HeroSection() {
   return (
-    <div className="login-page__hero">
+    <div className="hero-section">
       <Image
         src={lensqrLogo}
         alt="Lendsqr Logo"
-        className="login-page__hero-logo"
+        className="hero-section__logo"
         layout="constrained"
         width={150}
         height={40}
@@ -17,7 +17,7 @@ export function LeftPanel() {
       <Image
         src={pabloIllustration}
         alt="Login Illustration"
-        className="login-page__hero-image"
+        className="hero-section__image"
         layout="constrained"
         width={600}
         height={400}

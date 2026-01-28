@@ -25,8 +25,8 @@
 @use "components/header";
 @use "components/sidebar";
 @use "components/dropdown-menu";
-// @use 'components/buttons';
-@use "components/form";
+@use "components/button";
+
 @use "layout/dashboard";
 // @use 'components/carousel';
 // @use 'components/cover';
@@ -40,7 +40,7 @@
 
 // 6. Pages
 // @use 'pages/home';
-@use "pages/login";
+@use "pages/auth/login";
 // @use "pages/users";
 // @use "pages/user-details";
 @use "components/user-details";

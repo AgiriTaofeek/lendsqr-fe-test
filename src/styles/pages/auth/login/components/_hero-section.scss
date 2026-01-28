@@ -1,0 +1,33 @@
+@use "../../../../abstracts/variables" as *;
+@use "../../../../abstracts/mixins" as *;
+
+.hero-section {
+  display: none;
+
+  // Desktop: Show it
+  @media (min-width: $breakpoint-mobile) {
+    flex: 1;
+    background-color: #f8f8f8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: toRem(40);
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__logo {
+    position: absolute;
+    top: toRem(100);
+    left: toRem(80);
+    width: toRem(150);
+  }
+
+  &__image {
+    max-width: 80%;
+    height: auto;
+    object-fit: contain;
+    mix-blend-mode: multiply; //The "SVG" is actually an embedded PNG with a white background. I've applied mix-blend-mode: multiply to the image via CSS. This effectively turns the white pixels transparent, allowing the grey background (#f8f8f8) to show through, creating the "blended" look
+  }
+}

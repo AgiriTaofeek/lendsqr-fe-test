@@ -2,6 +2,5 @@
 @use "../abstracts/mixins" as *;
 
 .auth-layout {
-  display: flex;
-  min-height: 100vh;
+  @include full-body-flex;
 }
