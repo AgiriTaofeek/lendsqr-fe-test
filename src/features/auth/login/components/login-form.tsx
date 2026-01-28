@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
+import { Input } from "@/features/auth/login/components/Input";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -9,6 +8,7 @@ import {
   loginSchema,
   type LoginFormData,
 } from "../../hooks/useLogin";
+import { Button } from "@/components/ui/Button";
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -74,8 +74,6 @@ export function LoginForm() {
       <Link to="/" className="forgot-password">
         Forgot password?
       </Link>
-
-      {/* Error Message */}
 
       <Button type="submit" isLoading={isPending}>
         {isPending ? "LOGGING IN..." : "LOG IN"}

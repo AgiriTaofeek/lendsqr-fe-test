@@ -18,3 +18,8 @@
   justify-content: center;
   align-items: center;
 }
+
+@mixin full-body-flex {
+  display: flex;
+  min-height: 100vh;
+}

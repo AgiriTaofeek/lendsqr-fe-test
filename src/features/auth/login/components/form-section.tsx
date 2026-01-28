@@ -2,20 +2,20 @@ import { Image } from "@unpic/react";
 import lensqrLogo from "@/assets/images/lensqr-logo.svg";
 import { LoginForm } from "./login-form";
 
-export function RightPanel() {
+export function FormSection() {
   return (
-    <div className="login-page__content">
-      <div className="login-page__form-wrapper">
+    <div className="form-section">
+      <div className="form-section__wrapper">
         <Image
           src={lensqrLogo}
           alt="Lendsqr Logo"
-          className="login-page__mobile-logo"
+          className="form-section__mobile-logo"
           layout="constrained"
           width={150}
           height={40}
         />
-        <h1 className="login-page__title">Welcome!</h1>
-        <p className="login-page__subtitle">Enter details to login.</p>
+        <h1 className="form-section__title">Welcome!</h1>
+        <p className="form-section__subtitle">Enter details to login.</p>
 
         <LoginForm />
       </div>
