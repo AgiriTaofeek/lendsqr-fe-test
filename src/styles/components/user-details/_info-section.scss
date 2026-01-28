@@ -1,0 +1,73 @@
+@use "../../abstracts/variables" as *;
+@use "../../abstracts/mixins" as *;
+
+.user-details {
+  // Details Content Card
+  &__content-card {
+    background: $color-white;
+    border: 1px solid rgba($color-border, 0.06);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.04);
+    border-radius: toRem(4);
+    padding: toRem(30);
+  }
+
+  &__section {
+    padding-bottom: toRem(30);
+    border-bottom: 1px solid rgba($color-border, 0.1);
+    margin-bottom: toRem(30);
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &__section-title {
+    font-size: toRem(16);
+    font-weight: 500;
+    color: $text-color-primary;
+    margin-bottom: toRem(30);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: toRem(30);
+
+    @media (min-width: $breakpoint-mobile) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: $breakpoint-tablet) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      // Desktop
+      grid-template-columns: repeat(
+        4,
+        1fr
+      ); // Design shows roughly 4 columns spacing
+    }
+  }
+
+  &__info-group {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(8);
+  }
+
+  &__info-label {
+    font-size: toRem(12);
+    color: $text-color-secondary;
+    text-transform: uppercase;
+  }
+
+  &__info-value {
+    font-size: toRem(16);
+    color: $text-color-secondary; // Or slightly darker
+    font-weight: 500;
+    word-break: break-word;
+  }
+}

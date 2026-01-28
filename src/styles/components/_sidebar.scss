@@ -60,7 +60,7 @@
 
   &__switch-org {
     padding: 0 toRem(30);
-    margin-bottom: toRem(30);
+    // margin-bottom: toRem(30);
     display: flex;
     align-items: center;
     gap: toRem(10);
@@ -69,6 +69,7 @@
     cursor: pointer;
     font-size: toRem(16);
     line-height: 1;
+    padding-block: 2rem;
 
     //Vertical Alignment
     &-text {

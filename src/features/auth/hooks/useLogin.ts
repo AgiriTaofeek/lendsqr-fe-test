@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
-import { supabase } from "@/lib/supabase";
+import { useNavigate, useRouter } from "@tanstack/react-router";
+import { auth } from "@/lib/auth";
 import { z } from "zod";
 import { toast } from "react-toastify";
 
@@ -13,28 +13,33 @@ export type LoginFormData = z.infer<typeof loginSchema>;
 
 export const useLogin = () => {
   const navigate = useNavigate();
+  const router = useRouter();
 
   return useMutation({
     mutationFn: async ({ email, password }: LoginFormData) => {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
       });
 
-      if (error) {
-        throw error;
+      if (!response.ok) {
+        throw new Error("Login failed");
       }
 
+      const data = await response.json();
       return data;
     },
     onSuccess: (data) => {
-      // Supabase handles session persistence automatically,
-      // but we can store user details if needed for quick access
-      if (data.user) {
-        localStorage.setItem("user", JSON.stringify(data.user));
+      // Sync with our Router Auth Context
+      if (data.user?.email) {
+        auth.signIn(data.user.email);
       }
 
-      // Navigate to dashboard (index route)
+      // Invalidate router to ensure the beforeLoad check re-runs immediately
+      router.invalidate();
+
+      // Navigate to dashboard
       navigate({ to: "/" });
     },
     onError: (error) => {
