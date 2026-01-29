@@ -17,6 +17,14 @@ vi.mock("@tanstack/react-router", () => ({
   useRouter: () => ({ invalidate: vi.fn() }),
 }));
 
+// Mock the hook to avoid QueryClient provider issues
+vi.mock("@/features/users/hooks/use-update-user-status", () => ({
+  useUpdateUserStatus: () => ({
+    mutate: vi.fn(),
+    isPending: false,
+  }),
+}));
+
 // Mock child components to isolate unit testing if needed,
 // but simplified here we'll test integration of the parts
 // or just test that data is passed safely.
