@@ -3,6 +3,7 @@
 // -----------------------------------------------------------------------------
 
 @use "sass:math";
+@use "sass:map";
 
 // Function: Convert px to rem
 @function toRem($pixels) {
@@ -36,11 +37,11 @@ $breakpoints: (
 );
 
 @mixin respond-to($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media only screen and (min-width: map-get($breakpoints, $breakpoint)) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media only screen and (min-width: map.get($breakpoints, $breakpoint)) {
       @content;
     }
   } @else {
-    @warn "No value found for breakpoint `#{$breakpoint}`. Available breakpoints are: #{map-keys($breakpoints)}.";
+    @warn "No value found for breakpoint `#{$breakpoint}`. Available breakpoints are: #{map.keys($breakpoints)}.";
   }
 }
