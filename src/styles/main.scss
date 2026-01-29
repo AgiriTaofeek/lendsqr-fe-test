@@ -11,6 +11,7 @@
 // @use 'base/reset';
 @use "base/fonts";
 @use "base/typography";
+@use "base/utilities";
 
 // 4. Layout
 @use "layout/auth-layout";
@@ -27,7 +28,9 @@
 @use "components/sidebar";
 @use "components/dropdown-menu";
 @use "components/button";
+@use "components/dialog";
 @use "components/users";
+@use "components/loading";
 // @use "layout/dashboard";
 // @use 'components/carousel';
 // @use 'components/cover';

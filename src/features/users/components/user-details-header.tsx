@@ -1,29 +1,43 @@
-import { useRouter, getRouteApi } from "@tanstack/react-router";
+import { getRouteApi } from "@tanstack/react-router";
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
-import { toast } from "react-toastify";
+import { useState } from "react";
+import { useUpdateUserStatus } from "@/features/users/hooks/use-update-user-status";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 
 const routeApi = getRouteApi("/_protected/users/$id");
 
+type ActionType = "Blacklisted" | "Active" | null;
+
 export function UserDetailsHeader() {
-  const router = useRouter();
   const { id } = routeApi.useParams();
+  const { mutate: updateStatus, isPending } = useUpdateUserStatus(id);
+  const [actionType, setActionType] = useState<ActionType>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  const handleStatusChange = async (status: "Active" | "Blacklisted") => {
-    try {
-      await fetch(`/api/users/${id}/status`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status }),
+  const handleActionClick = (type: ActionType) => {
+    setActionType(type);
+    setIsDialogOpen(true);
+  };
+
+  const handleConfirm = () => {
+    if (actionType) {
+      updateStatus(actionType, {
+        onSuccess: () => {
+          setIsDialogOpen(false);
+        },
       });
-
-      toast.success(
-        `User ${status === "Active" ? "Activated" : "Blacklisted"} successfully`,
-      );
-      router.invalidate(); // Refetch the user details
-    } catch (err) {
-      toast.error("Failed to update status");
     }
   };
+
+  const isBlacklisting = actionType === "Blacklisted";
 
   return (
     <>
@@ -40,18 +54,53 @@ export function UserDetailsHeader() {
         <div className="user-details__actions">
           <button
             className="user-details__btn user-details__btn--blacklist"
-            onClick={() => handleStatusChange("Blacklisted")}
+            onClick={() => handleActionClick("Blacklisted")}
           >
             Blacklist User
           </button>
           <button
             className="user-details__btn user-details__btn--activate"
-            onClick={() => handleStatusChange("Active")}
+            onClick={() => handleActionClick("Active")}
           >
             Activate User
           </button>
         </div>
       </div>
+
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {isBlacklisting ? "Blacklist User" : "Activate User"}
+            </DialogTitle>
+            <DialogDescription>
+              Are you sure you want to{" "}
+              {isBlacklisting ? "blacklist" : "activate"} this user? This action
+              will update their access permissions immediately.
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setIsDialogOpen(false)}
+              disabled={isPending}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="button"
+              // Keep original styling logic: Blacklist -> Danger, Activate -> Primary
+              variant={isBlacklisting ? "danger" : "primary"}
+              onClick={handleConfirm}
+              isLoading={isPending}
+            >
+              {isBlacklisting ? "Blacklist" : "Activate"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

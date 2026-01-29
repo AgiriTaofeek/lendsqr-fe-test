@@ -23,3 +23,24 @@
   display: flex;
   min-height: 100vh;
 }
+
+// Media Query Manager
+$breakpoints: (
+  "mobile": 37.5em,
+  // 600px
+  "tablet": 56.25em,
+  // 900px
+  "desktop": 75em,
+  // 1200px
+  "big-desktop": 112.5em, // 1800px
+);
+
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media only screen and (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "No value found for breakpoint `#{$breakpoint}`. Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}

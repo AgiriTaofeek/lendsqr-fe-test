@@ -1,0 +1,154 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.dialog {
+  &__overlay {
+    background-color: rgba(0, 0, 0, 0.5); // Radix standard darkness
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    backdrop-filter: blur(2px); // Optional but nice
+
+    // Animation hooks for Radix
+    &[data-state="open"] {
+      animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    &[data-state="closed"] {
+      animation: overlayHide 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+  }
+
+  &__content {
+    background-color: $color-white;
+    border-radius: toRem(6); // Radix usually uses 6px
+    box-shadow:
+      hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
+      hsl(206 22% 7% / 20%) 0px 10px 20px -15px; // The classic Radix shadow
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw; // Responsive default
+    max-width: toRem(450); // Standard Radix width is often 450px
+    max-height: 85vh;
+    padding: toRem(25);
+    z-index: 51;
+    display: flex;
+    flex-direction: column;
+    gap: toRem(20);
+    overflow-y: auto;
+
+    // Animation hooks
+    &[data-state="open"] {
+      animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    &[data-state="closed"] {
+      animation: contentHide 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    &:focus {
+      outline: none; // Radix handles focus management
+    }
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: toRem(10); // Standard radix spacing
+    text-align: left; // Radix defaults to left
+  }
+
+  &__footer {
+    display: flex;
+    flex-direction: column-reverse; // Mobile first stack
+    gap: toRem(10);
+    margin-top: toRem(10);
+
+    @include respond-to("tablet") {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+  }
+
+  &__title {
+    font-family: $font-family-base;
+    margin: 0;
+    font-weight: 500;
+    color: $text-color-primary;
+    font-size: toRem(17);
+  }
+
+  &__description {
+    font-family: $font-family-base;
+    margin: 0; // margin-bottom: 20px in typical examples
+    color: $text-color-secondary;
+    font-size: toRem(15);
+    line-height: 1.5;
+  }
+
+  &__close-btn {
+    font-family: inherit;
+    border-radius: 100%;
+    height: toRem(25);
+    width: toRem(25);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-primary; // Using project teal
+    position: absolute;
+    top: toRem(10);
+    right: toRem(10);
+    cursor: pointer;
+    background: transparent;
+    border: none;
+
+    &:hover {
+      background-color: rgba($color-primary, 0.1); // Subtle hover state
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba($color-primary, 0.5); // Standard focus ring
+    }
+  }
+}
+
+// Official Radix Animations
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes overlayHide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes contentHide {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+}

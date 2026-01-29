@@ -26,5 +26,14 @@ export const Route = createFileRoute("/_protected/users/")({
       stats,
     };
   },
+  head: () => ({
+    meta: [
+      { title: "Users - Lendsqr" },
+      {
+        name: "description",
+        content: "Manage platform users and view statistics",
+      },
+    ],
+  }),
   component: Users,
 });
