@@ -1,6 +1,4 @@
-import type { KnipConfig } from "knip";
-
-const config: KnipConfig = {
+const config = {
   entry: [
     "src/main.tsx",
     // TanStack Router auto-generated files and route definitions
