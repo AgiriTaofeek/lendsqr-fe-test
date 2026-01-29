@@ -13,7 +13,6 @@ export function useMediaQuery(query: string): boolean {
 
     // Set initial value
     if (matches !== mediaQuery.matches) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setMatches(mediaQuery.matches);
     }
 
