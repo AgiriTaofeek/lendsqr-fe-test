@@ -1,19 +1,15 @@
 # Lendsqr Frontend Engineer Assessment
 
-<div align="center">
-  <img src="public/logo.svg" alt="Lendsqr Logo" width="150" />
-</div>
-
 ## Project Overview
 
 This is a frontend engineering assessment for Lendsqr. The application is a user management dashboard that allows viewing users, filtering, and seeing detailed user profiles.
 
-It is built to be **pixel-perfect** according to the [Figma Design](https://www.figma.com/file/ZKILoCoIoy1IESdBpq3GNC/Frontend) and implements a responsive design using SCSS.
+It is built to be **pixel-perfect** according to the Figma design and implements a responsive design using SCSS.
 
 ## 🚀 Live Demo & Resources
 
-- **Deployment URL**: [INSERT DEPLOYMENT URL HERE]
-- **Video Review**: [INSERT LOOM/VIDEO URL HERE]
+- **Deployment URL**: [https://agiri-taofeek-lendsqr-fe-test.netlify.app](https://agiri-taofeek-lendsqr-fe-test.netlify.app)
+- **Video Review**: [Watch on Loom](https://www.loom.com/share/5b2f8577b2a64ba79f7e11eeb94802fa)
 - **Repository**: [https://github.com/AgiriTaofeek/lendsqr-fe-test](https://github.com/AgiriTaofeek/lendsqr-fe-test)
 
 ## 🛠️ Tech Stack
@@ -52,26 +48,78 @@ SCSS is organized in a `src/styles` directory with the 7-1 pattern:
 - `layout/`: Layout grids
 - `pages/`: Page-specific overrides
 
+## 📖 How to Use
+
+### Login
+
+The application uses a **Mock Authentication** system. You do not need real credentials.
+
+1. **Email**: Enter any valid email address (e.g., `test@lendsqr.com`).
+2. **Password**: Enter any password (min 6 characters).
+3. Click **LOG IN**.
+
+> **Note**: The app will derive a user profile based on the email you enter.
+
+### Dashboard
+
+Once logged in, you can access the dashboard to:
+
+- **View Users**: Browse the list of users fetched from the mock database.
+- **Filter Users**: Use the filter panel to search by organization, status, or distinct criteria.
+- **View User Details**: Click on a user row to see their full profile and detailed information.
+- **Manage User Status**: Activate or blacklist users from the user details page.
+
 ## 🏃‍♂️ Running Locally
 
-1. **Install Dependencies**
+Follow these steps to set up and run the project on your local machine.
 
-   ```bash
-   npm install
-   ```
+### Prerequisites
 
-2. **Start Development Server**
+Ensure you have the following installed:
 
-   ```bash
-   npm run dev
-   ```
+- [Node.js](https://nodejs.org/) (v18 or higher recommended)
+- [Git](https://git-scm.com/)
 
-   The app will be available at `http://localhost:3000`.
+### 1. Clone the Repository
 
-3. **Run Tests**
-   ```bash
-   npm run test
-   ```
+```bash
+git clone https://github.com/AgiriTaofeek/lendsqr-fe-test.git
+cd lendsqr-fe-test
+```
+
+### 2. Install Dependencies
+
+Install the project dependencies using npm:
+
+```bash
+npm install
+```
+
+### 3. Start the Development Server
+
+Start the local development server. This will also initialize the Mock Service Worker (MSW) for API mocking.
+
+```bash
+npm run dev
+```
+
+> **Note**: The application will run at [http://localhost:3000](http://localhost:3000).
+
+### 4. Build for Production
+
+To create a production-ready build:
+
+```bash
+npm run build
+```
+
+### 5. Run Tests
+
+Execute the test suite to ensure everything is working correctly:
+
+```bash
+npm run test
+```
 
 ## 🧪 Testing
 
