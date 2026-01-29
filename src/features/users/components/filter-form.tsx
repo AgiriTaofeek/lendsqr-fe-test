@@ -42,11 +42,13 @@ export function FilterForm({
     const searchValue = data.username || data.email || data.phone;
 
     navigate({
-      search: (prev: any) => ({
+      search: (prev: Record<string, unknown>) => ({
         ...prev,
         page: 1, // Reset to page 1
         org: data.org || undefined,
-        status: data.status || undefined,
+        status:
+          (data.status as "Active" | "Inactive" | "Pending" | "Blacklisted") ||
+          undefined,
         search: searchValue || undefined,
       }),
     });
@@ -55,7 +57,7 @@ export function FilterForm({
   const onReset = () => {
     reset();
     navigate({
-      search: (prev: any) => ({
+      search: (prev: Record<string, unknown>) => ({
         ...prev,
         page: 1,
         org: undefined,

@@ -1,5 +1,6 @@
 import { UserDetails } from "@/features/users/components/user-details";
 import { createFileRoute } from "@tanstack/react-router";
+import type { User } from "@/types/types";
 
 export const Route = createFileRoute("/_protected/users/$id")({
   loader: async ({ params: { id } }) => {
@@ -15,7 +16,7 @@ export const Route = createFileRoute("/_protected/users/$id")({
   head: ({ loaderData }) => ({
     meta: [
       {
-        title: `${(loaderData as any).username || "User"} - User Details - Lendsqr`,
+        title: `${(loaderData as User).username || "User"} - User Details - Lendsqr`,
       },
       { name: "description", content: "View detailed user information" },
     ],
