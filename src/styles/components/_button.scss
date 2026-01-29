@@ -33,5 +33,40 @@
       background-color: color.adjust($color-primary, $lightness: -5%);
       border-color: color.adjust($color-primary, $lightness: -5%);
     }
+
+    &:disabled {
+      background-color: color.adjust($color-primary, $lightness: 20%);
+      border-color: transparent;
+      cursor: not-allowed;
+    }
+  }
+
+  // Modifier: Outline
+  &--outline {
+    background-color: transparent;
+    border-color: $text-color-secondary;
+    color: $text-color-secondary;
+
+    &:hover {
+      background-color: rgba($text-color-secondary, 0.1);
+      border-color: $text-color-primary;
+      color: $text-color-primary;
+    }
+  }
+
+  // Modifier: Danger
+  &--danger {
+    color: $color-white;
+    background-color: $color-danger;
+    border-color: $color-danger;
+
+    &:hover {
+      background-color: color.adjust($color-danger, $lightness: -5%);
+      border-color: color.adjust($color-danger, $lightness: -5%);
+    }
+
+    // &:focus {
+    //   box-shadow: 0 0 0 0.2rem rgba($color-danger, 0.5);
+    // }
   }
 }

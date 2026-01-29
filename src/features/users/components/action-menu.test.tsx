@@ -8,6 +8,7 @@ const mockUpdateStatus = vi.fn();
 vi.mock("@/features/users/hooks/use-update-user-status", () => ({
   useUpdateUserStatus: () => ({
     mutate: mockUpdateStatus,
+    isPending: false,
   }),
 }));
 
@@ -16,7 +17,7 @@ vi.mock("@tanstack/react-router", () => ({
   Link: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }));
 
-// Mock Dropdown Menu components to avoid complex Radix interactions in unit test
+// Mock Dropdown Menu components
 vi.mock("@/components/ui/dropdown-menu", () => ({
   DropdownMenu: ({ children }: { children: React.ReactNode }) => (
     <div>{children}</div>
@@ -34,13 +35,47 @@ vi.mock("@/components/ui/dropdown-menu", () => ({
     children: React.ReactNode;
     onSelect?: () => void;
   }) => (
-    <div
-      data-testid="item"
-      onClick={onSelect}
-      // Add simplified role for userEvent click if needed, but div with onClick usually works
-    >
+    <button data-testid="item" onClick={onSelect}>
       {children}
-    </div>
+    </button>
+  ),
+}));
+
+// Mock Dialog components
+vi.mock("@/components/ui/dialog", () => ({
+  Dialog: ({ children, open }: { children: React.ReactNode; open: boolean }) =>
+    open ? <div role="dialog">{children}</div> : null,
+  DialogContent: ({ children }: { children: React.ReactNode }) => (
+    <div>{children}</div>
+  ),
+  DialogHeader: ({ children }: { children: React.ReactNode }) => (
+    <div>{children}</div>
+  ),
+  DialogTitle: ({ children }: { children: React.ReactNode }) => (
+    <h2>{children}</h2>
+  ),
+  DialogDescription: ({ children }: { children: React.ReactNode }) => (
+    <p>{children}</p>
+  ),
+  DialogFooter: ({ children }: { children: React.ReactNode }) => (
+    <div>{children}</div>
+  ),
+}));
+
+// Mock Button
+vi.mock("@/components/ui/button", () => ({
+  Button: ({
+    children,
+    onClick,
+    variant,
+  }: {
+    children: React.ReactNode;
+    onClick?: () => void;
+    variant?: string;
+  }) => (
+    <button onClick={onClick} data-variant={variant}>
+      {children}
+    </button>
   ),
 }));
 
@@ -59,46 +94,96 @@ describe("ActionMenu Component", () => {
     expect(screen.getByTestId("trigger")).toHaveTextContent("Open");
   });
 
-  it("calls updateStatus with 'Blacklisted' when Blacklist User is clicked", async () => {
+  it("opens dialog when Blacklist User is clicked and calls updateStatus on confirmation", async () => {
     const user = userEvent.setup();
     render(<ActionMenu {...defaultProps} />);
 
-    // Simulate opening menu (our mock renders content always, but in real life we'd click trigger)
-    // With our mock structure, items are rendered immediately inside Content
-
+    // Click trigger to "open" menu (simulated by rendering)
+    // Click Blacklist User item
     const items = screen.getAllByTestId("item");
-    // Find the one with "Blacklist User" text
     const blacklistBtn = items.find((item) =>
       item.textContent?.includes("Blacklist User"),
     );
+    if (!blacklistBtn) throw new Error("Blacklist button not found");
+    await user.click(blacklistBtn);
 
-    if (blacklistBtn) {
-      await user.click(blacklistBtn);
-      expect(mockUpdateStatus).toHaveBeenCalledWith("Blacklisted");
-    } else {
-      throw new Error("Blacklist button not found");
-    }
+    // Verify dialog is open
+    const dialog = screen.getByRole("dialog");
+    expect(dialog).toBeInTheDocument();
+
+    // Use role for heading to be specific
+    expect(
+      screen.getByRole("heading", { name: "Blacklist User" }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText(/Are you sure you want to blacklist/i),
+    ).toBeInTheDocument();
+
+    // Click confirm button (The one that says "Blacklist" exactly)
+    // We restrict to button role to avoid matching other text
+    const confirmBtn = screen.getByRole("button", { name: /^Blacklist$/ });
+    await user.click(confirmBtn);
+
+    // Verify mutation called
+    expect(mockUpdateStatus).toHaveBeenCalledWith(
+      "Blacklisted",
+      expect.any(Object),
+    );
   });
 
-  it("calls updateStatus with 'Active' when Activate User is clicked", async () => {
+  it("opens dialog when Activate User is clicked and calls updateStatus on confirmation", async () => {
     const user = userEvent.setup();
     render(<ActionMenu {...defaultProps} />);
 
+    // Click Activate User item
     const items = screen.getAllByTestId("item");
     const activateBtn = items.find((item) =>
       item.textContent?.includes("Activate User"),
     );
+    if (!activateBtn) throw new Error("Activate button not found");
+    await user.click(activateBtn);
 
-    if (activateBtn) {
-      await user.click(activateBtn);
-      expect(mockUpdateStatus).toHaveBeenCalledWith("Active");
-    } else {
-      throw new Error("Activate button not found");
-    }
+    // Verify dialog is open
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+
+    // Check for title specifically
+    expect(
+      screen.getByRole("heading", { name: "Activate User" }),
+    ).toBeInTheDocument();
+
+    expect(
+      screen.getByText(/Are you sure you want to activate/i),
+    ).toBeInTheDocument();
+
+    // Click confirm button (The one that says "Activate" exactly)
+    const confirmBtn = screen.getByRole("button", { name: /^Activate$/ });
+    await user.click(confirmBtn);
+
+    // Verify mutation called
+    expect(mockUpdateStatus).toHaveBeenCalledWith("Active", expect.any(Object));
   });
 
-  it("renders View Details link", () => {
+  it("closes dialog when Cancel is clicked", async () => {
+    const user = userEvent.setup();
     render(<ActionMenu {...defaultProps} />);
-    expect(screen.getByText("View Details")).toBeInTheDocument();
+
+    // Open Blacklist dialog
+    const items = screen.getAllByTestId("item");
+    const blacklistBtn = items.find((item) =>
+      item.textContent?.includes("Blacklist User"),
+    );
+    if (!blacklistBtn) throw new Error("Blacklist button not found");
+    await user.click(blacklistBtn);
+
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+
+    // Click Cancel
+    const cancelBtn = screen.getByText("Cancel");
+    await user.click(cancelBtn);
+
+    // Verify dialog is closed (not in document)
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(mockUpdateStatus).not.toHaveBeenCalled();
   });
 });

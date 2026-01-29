@@ -1,6 +1,7 @@
 import { Outlet, createRootRouteWithContext } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
+import { HeadContent } from "@tanstack/react-router";
 
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import type { QueryClient } from "@tanstack/react-query";
@@ -15,10 +16,26 @@ interface MyRouterContext {
 
 import { NotFoundComponent } from "@/components/ui/not-found";
 import { ErrorComponent } from "@/components/ui/error-component";
+import { LoadingScreen } from "@/components/ui/loading-screen";
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
+  head: () => ({
+    meta: [
+      {
+        charSet: "utf-8",
+      },
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1",
+      },
+      {
+        title: "Lendsqr Fe Test",
+      },
+    ],
+  }),
   component: () => (
     <>
+      <HeadContent />
       <Outlet />
       <ToastContainer
         position="top-right"
@@ -51,4 +68,5 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   ),
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
+  pendingComponent: LoadingScreen,
 });

@@ -3,7 +3,7 @@ import type { ButtonHTMLAttributes } from "react";
 import classNames from "classnames";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary"; // Expandable for 'secondary', 'outline', etc.
+  variant?: "primary" | "secondary" | "outline" | "danger";
   isLoading?: boolean;
 }
 
