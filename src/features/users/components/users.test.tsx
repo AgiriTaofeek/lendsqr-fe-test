@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { Users } from "./users";
 
@@ -19,7 +19,7 @@ const mockSearch = {
 
 // Mock @tanstack/react-query
 vi.mock("@tanstack/react-query", async (importOriginal) => {
-  const actual = await importOriginal();
+  const actual = await importOriginal<typeof import("@tanstack/react-query")>();
   return {
     ...actual,
     useSuspenseQuery: () => mockUseSuspenseQuery(),

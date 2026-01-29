@@ -20,9 +20,8 @@ interface FilterFormValues {
 
 export function FilterForm({
   trigger,
-  triggerClass,
   isPending,
-}: FilterFormProps & { triggerClass?: string; isPending?: boolean }) {
+}: FilterFormProps & { isPending?: boolean }) {
   const navigate = routeApi.useNavigate();
   const search = routeApi.useSearch();
 

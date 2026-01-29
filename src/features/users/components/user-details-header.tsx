@@ -1,11 +1,10 @@
-import { useNavigate, useRouter, getRouteApi } from "@tanstack/react-router";
+import { useRouter, getRouteApi } from "@tanstack/react-router";
 import { HiOutlineArrowNarrowLeft } from "react-icons/hi";
 import { toast } from "react-toastify";
 
 const routeApi = getRouteApi("/_protected/users/$id");
 
 export function UserDetailsHeader() {
-  const navigate = useNavigate();
   const router = useRouter();
   const { id } = routeApi.useParams();
 
