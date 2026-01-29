@@ -80,6 +80,7 @@ describe("FilterForm Component", () => {
 
     // We can verify the function passed to search clears keys
     const navigateCall = mockNavigate.mock.calls.find((call) => call[0].search);
+    if (!navigateCall) throw new Error("Navigate not called with search param");
     const searchUpdater = navigateCall[0].search;
     const result = searchUpdater({ existing: "value" });
 
