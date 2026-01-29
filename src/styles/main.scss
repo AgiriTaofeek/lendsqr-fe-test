@@ -42,6 +42,7 @@
 // 6. Pages
 // @use 'pages/home';
 @use "pages/auth/login";
+@use "pages/error";
 // @use "pages/users";
 // @use "pages/user-details";
 @use "components/user-details";

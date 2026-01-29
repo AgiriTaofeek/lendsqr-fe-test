@@ -13,6 +13,9 @@ interface MyRouterContext {
   auth: AuthContext;
 }
 
+import { NotFoundComponent } from "@/components/ui/not-found";
+import { ErrorComponent } from "@/components/ui/error-component";
+
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: () => (
     <>
@@ -46,4 +49,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       />
     </>
   ),
+  notFoundComponent: NotFoundComponent,
+  errorComponent: ErrorComponent,
 });
