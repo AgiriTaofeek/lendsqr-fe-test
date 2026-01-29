@@ -18,11 +18,9 @@ export function DashboardLayout() {
 
   // Close sidebar on route change (mobile)
   useEffect(() => {
-    if (isSidebarOpen) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setIsSidebarOpen(false);
-    }
-  }, [location.pathname, isSidebarOpen]);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsSidebarOpen(false);
+  }, [location.pathname]);
 
   const handleOrganizationChange = (org: Organization) => {
     setCurrentOrg(org);

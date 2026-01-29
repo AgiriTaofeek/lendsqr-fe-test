@@ -26,7 +26,15 @@ export function Users() {
   );
 }
 
-function UsersList({ search }: { search: any }) {
+interface UsersSearch {
+  page?: number;
+  limit?: number;
+  search?: string;
+  org?: string;
+  status?: string;
+}
+
+function UsersList({ search }: { search: UsersSearch }) {
   const navigate = routeApi.useNavigate();
   const { data: usersData } = useSuspenseQuery(
     usersQueryOptions({
@@ -56,14 +64,21 @@ function UsersList({ search }: { search: any }) {
 
   const handlePageChange = (page: number) => {
     navigate({
-      search: (prev: any) => ({ ...prev, page: page === 1 ? undefined : page }),
+      search: (prev: Record<string, unknown>) => ({
+        ...prev,
+        page: page === 1 ? undefined : page,
+      }),
       resetScroll: false,
     });
   };
 
   const handleItemsPerPageChange = (limit: number) => {
     navigate({
-      search: (prev: any) => ({ ...prev, limit, page: undefined }),
+      search: (prev: Record<string, unknown>) => ({
+        ...prev,
+        limit,
+        page: undefined,
+      }),
       resetScroll: false,
     });
   };
